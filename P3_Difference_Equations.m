@@ -3,11 +3,11 @@ clear all; clc
 % We assume that individuals mix randomly and parameter values are given as
 % follows:
 N = 100000;						% Population 100,000 people
-[S0, E0, I0] = deal(99999, 0, 1);		% Initial values
+[S0, E0, I0, R0] = deal(99999, 0, 1, 0);		% Initial values
 kappa = 1/8; 					% Pre-infectious period 8 days
 alpha = 1/7;					% Infectious period 7 days
-R0 = 13;						% Basic reproduction number 13
-beta = R0 * alpha / N;
+R_0 = 13;						% Basic reproduction number 13
+beta = R_0 * alpha / N;
 
 % Set up the SEIR model of the transmission dynamics of measles in a closed
 % population using difference equations:
@@ -29,8 +29,6 @@ end
 % and recovered populations during 200 days.
 days = 0:dt:trans_period;
 plot(days, data_coll');
-ax = gca;           % current axes
-ax.YLim = [-1e4 11e4];
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 200 days');
 xlabel('Time(Days)');
@@ -75,8 +73,6 @@ end
 figure('WindowState','maximized');
 subplot(2,1,1);
 plot(days, data_coll1');
-ax = gca;           % current axes
-ax.YLim = [0 10e4];
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 200 days (Pre-infectious period 5 days)');
 xlabel('Time(Days)');
@@ -134,8 +130,6 @@ end
 figure
 days = 0:dt:trans_period;
 plot(days, data_coll3');
-ax = gca;           % current axes
-ax.YLim = [-1e4 11e4];
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 200 days with LE = 70 yrs');
 xlabel('Time(Days)');
