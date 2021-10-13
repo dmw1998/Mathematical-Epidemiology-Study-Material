@@ -29,7 +29,7 @@ y0 = [S0, E0, I0, R0];
 % and recovered populations during 150 days.
 figure('WindowState','maximized')
 subplot(3,1,2)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 8 days pre-infectious period');
 xlabel('Time(Days)');
@@ -48,7 +48,7 @@ odefun = @(t,y) [-beta*y(1)*y(3);...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,1)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 5 days pre-infectious period');
 xlabel('Time(Days)');
@@ -64,7 +64,7 @@ odefun = @(t,y) [-beta*y(1)*y(3);...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,3)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 20 days pre-infectious period');
 xlabel('Time(Days)');
@@ -95,7 +95,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 % and recovered populations during 150 days.
 figure('WindowState','maximized')
 subplot(3,1,2)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 8 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
@@ -114,7 +114,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,1)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 5 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
@@ -130,7 +130,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,3)
-plot(t, y);
+plot(t./365./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 150 days with 20 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
@@ -159,7 +159,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 
 figure('WindowState','maximized')
 subplot(3,1,2)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 8 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
@@ -175,7 +175,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,1)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 5 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
@@ -191,7 +191,7 @@ odefun = @(t,y) [-beta*y(1)*y(3) + mu*(N-y(1));...
 [t,y] = ode45(odefun,tspan,y0);
 
 subplot(3,1,3)
-plot(t, y);
+plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 20 days pre-infectious period with birth and death');
 xlabel('Time(Days)');
