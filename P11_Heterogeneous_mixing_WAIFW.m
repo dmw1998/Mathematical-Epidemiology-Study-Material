@@ -21,7 +21,7 @@ a_m = 1/(15*365);               % rate at which middle-aged individuals age
 
 % Calculate the infectious rate beta for each WAIFW
 % By given FOI(force of infection), lambda and Number of infectious, I
-lambda = [0.00364; 0.000114; 0.000114];
+lambda = [0.000364; 0.000114; 0.000114];
 I = [20.1; 3.9; 3.4];
 BetaA = lambda./I;              % Beta's for A = diag{beta1, beta2, beta3}
                                           % Beta's for B
