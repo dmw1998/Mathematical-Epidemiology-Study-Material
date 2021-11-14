@@ -44,7 +44,7 @@ for i = 1 : k                   % For the first 10 interations
     data_coll_distr(:,i) = I/G_i;
 end
 
-figure
+figure('WindowState','maximized')
 x = 1:10;
 plot(x, data_coll_distr);
 legend('Young','Middle-aged','Old','Location', 'best')
@@ -95,7 +95,7 @@ for i = 1 : k                   % For the first 10 interations
     data_coll_distr(:,i) = I/G_i;
 end
 
-figure
+figure('WindowState','maximized')
 x = 1:10;
 subplot(2,1,1);
 plot(x, data_coll_distr);
@@ -138,7 +138,7 @@ data_coll_distr = [];           % Each column is the ratio of I_y:I_m:I_o
 data_coll_I = [];               % Each column is [I_y, I_m, I_o] for each time t
 data_coll_G = [];               % Each component is the total infectious for each time t
 c = [0.25, 0.5, 0.725, 0.75];
-figure
+figure('WindowState','maximized')
 for j = 1 : 4
     for i = 1 : k                   % For the first 10 interations
         I = (1-c(j))*NGM*I;                  % I = [I_y; I_m; I_o]
@@ -149,7 +149,6 @@ for j = 1 : 4
     end
 
     subplot(2,2,j)
-    plot(x, data_coll_distr);
-    legend('Young','Middle-aged','Old','Location', 'best')
-    title('Distribution of the infectious persons with ')
+    plot(x, data_coll_G);
+    title(sprintf('Total infectious persons with %.2f immune', c(j)))
 end
