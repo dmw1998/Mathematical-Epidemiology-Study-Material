@@ -103,6 +103,9 @@ plot(tt/365,data_coll_B{1}(:,1)/N_y, tt/365,data_coll_B{2}(:,1)/N_m, tt/365,data
 legend('young','middle','old')
 ylim([0 1])
 
+beta = 1.0530e-05;
+WAIFW_H = beta*ones(3,3);
+
 %% Part II
 % Given beta for homogeneous
 
