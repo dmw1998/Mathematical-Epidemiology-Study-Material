@@ -55,7 +55,7 @@ xlabel('Time(Days)');
 
 subplot(2,2,3)
 prop_R = y(:,4)/N;
-new_inf = alpha * y(:,2);
+new_inf = beta * y(:,1).* y(:,3);
 yyaxis left
 plot(t(40*365:50*365), prop_R(40*365:50*365));
 hold on
