@@ -1,4 +1,4 @@
-clear all; clc
+close all; clear all; clc
 %% Setting up difference equations
 % We assume that individuals mix randomly and parameter values are given as
 % follows:
@@ -162,7 +162,7 @@ subplot(3,1,2)
 plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 8 days pre-infectious period with birth and death');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 kappa = 1/5; 					% Pre-infectious period 5 days
@@ -178,7 +178,7 @@ subplot(3,1,1)
 plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 5 days pre-infectious period with birth and death');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 kappa = 1/20; 					% Pre-infectious period 20 days
@@ -194,7 +194,7 @@ subplot(3,1,3)
 plot(t./365, y);
 legend('susceptible','pre-infectious','infectious','recover','Location', 'east');
 title('SEIR model for 50 years with 20 days pre-infectious period with birth and death');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 % Then we can find that the longer pre-infectious period, the longer
