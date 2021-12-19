@@ -78,7 +78,7 @@ dt = 0.01;              % Delta t, Time Step
 beta = 0.25;               % Transmission Rate
 b = 0.25;               % Birth Rate
 gamma = 0.25;           % Recover Rate
-I0 = 2;                 % Initial Infectious Inidvidual
+I0 = 20;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
 total_time = 50;        % To 50 for each run
@@ -132,14 +132,5 @@ figure
 plot(data_coll)
 hold on
 
-final_I = data_coll(n,:);
-indx = find(final_I==0);
-final_I(indx) = [];
-
-data_coll(:, indx) = [];
-
 average_rel = mean(data_coll,2);
 plot(average_rel, 'k', 'LineWidth', 1.5)
-
-figure
-histogram(final_I)
