@@ -10,7 +10,7 @@ I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
 total_time = 50;        % To 50 for each run
-number_simul = 500;       % The number of simulations
+number_simul = 500;     % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 
 %% Define transition probility
