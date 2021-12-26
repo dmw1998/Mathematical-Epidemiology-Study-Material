@@ -9,7 +9,7 @@ gamma = 0.5;            % Recover Rate
 I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
-total_time = 14;        % To 14 for each run
+total_time = 50;        % To 50 for each run
 number_simul = 500;     % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 S0 = N - I0;            % Initial susceptible individuals
@@ -46,8 +46,8 @@ for k = 1 : number_simul
             else                        % Some people in R == death in R
                 a1 = 0;                 % No S to I
                 a2 = p0_1(s,i);         % One I to R
-                a3 = a2 + p0_1(s,i);    % New born in S and one death in I
-                a4 = a3 + p1_1(s,i);    % New born in S and one death in R
+                a3 = a2 + p1_1(s,i);    % New born in S and one death in I
+                a4 = a3 + p10(s,i);    % New born in S and one death in R
             end
         else                            % Both S and I are not zero
             a1 = p_11(s,i);              % Less than a1, one from S to I
@@ -60,13 +60,15 @@ for k = 1 : number_simul
         if c < a1                       % Less than a1, one from S to I
             data_coll_S(j,k) = s-1;
             data_coll_I(j,k) = i+1;
-        elseif c > a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+        elseif c >= a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+            data_coll_S(j,k) = s;
             data_coll_I(j,k) = i-1;
-        elseif c > a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
+        elseif c >= a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i-1;
-        elseif c > a3 && c < a4         % Greater than a3 but less than a4, (1,0)
+        elseif c >= a3 && c < a4         % Greater than a3 but less than a4, (1,0)
             data_coll_S(j,k) = s+1;
+            data_coll_I(j,k) = i;
         else                            % Greater than a4, unchanged
             data_coll_S(j,k) = s;
             data_coll_I(j,k) = i;
@@ -91,7 +93,7 @@ gamma = 0.25;           % Recover Rate
 I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
-total_time = 14;        % To 14 for each run
+total_time = 50;        % To 50 for each run
 number_simul = 500;     % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 S0 = N - I0;            % Initial susceptible individuals
@@ -142,13 +144,15 @@ for k = 1 : number_simul
         if c < a1                       % Less than a1, one from S to I
             data_coll_S(j,k) = s-1;
             data_coll_I(j,k) = i+1;
-        elseif c > a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+        elseif c >= a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+            data_coll_S(j,k) = s;
             data_coll_I(j,k) = i-1;
-        elseif c > a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
+        elseif c >= a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i-1;
-        elseif c > a3 && c < a4         % Greater than a3 but less than a4, (1,0)
+        elseif c >= a3 && c < a4         % Greater than a3 but less than a4, (1,0)
             data_coll_S(j,k) = s+1;
+            data_coll_I(j,k) = i;
         else                            % Greater than a4, unchanged
             data_coll_S(j,k) = s;
             data_coll_I(j,k) = i;
@@ -161,5 +165,14 @@ figure
 plot(data_coll_I)
 hold on
 
+final_I = data_coll_I(n,:);
+indx = find(final_I==0);
+final_I(indx) = [];
+
+data_coll_I(:, indx) = [];
+
 average_rel = mean(data_coll_I,2);
 plot(average_rel, 'k', 'LineWidth', 1.5)
+
+figure
+histogram(final_I)
