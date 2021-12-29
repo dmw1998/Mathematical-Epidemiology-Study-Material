@@ -10,7 +10,7 @@ I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
 total_time = 50;        % To 50 for each run
-number_simul = 10;     % The number of simulations
+number_simul = 10;      % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 
 %% Define transition probility
@@ -24,7 +24,7 @@ index_cell = cell(1,number_simul);
 
 for k = 1 : number_simul
     data_coll = [];
-    data_coll(1) = I0;                    % Initialize the data set
+    data_coll(1) = I0;                      % Initialize the data set
     
     % T_ind keep the time of people changed
     n = 1;
@@ -39,12 +39,12 @@ for k = 1 : number_simul
         n = n+1;                            % Next event
         % By given formular, give M (the total change rate) and T_len (length of time interval)
         if i == 0
-            T_len = 0.01;           % Step one step
+            T_len = 0.01;                   % Step one step
             data_coll(n) = data_coll(n-1);
             T_ind(n) = T_ind(n-1) + T_len;
             continue
         else
-            M = 1 - p0(i,1);             % M = p1 + p1_ (the probability of changes)
+            M = 1 - p0(i,1);                % M = p1 + p1_ (the probability of changes)
             T_len = -log(c)/M;
         end
 
@@ -82,10 +82,10 @@ end
 %% 2. Set given parameter
 N = 100;                % Population
 dt = 0.01;              % Delta t, Time Step
-beta = 0.25;               % Transmission Rate
+beta = 0.25;            % Transmission Rate
 b = 0.25;               % Birth Rate
 gamma = 0.25;           % Recover Rate
-I0 = 20;                 % Initial Infectious Inidvidual
+I0 = 20;                % Initial Infectious Inidvidual
 
 %% Simulation
 data_cell = {}; index_cell = {};
@@ -94,7 +94,7 @@ index_cell = cell(1,number_simul);
 
 for k = 1 : number_simul
     data_coll = [];
-    data_coll(1) = I0;                    % Initialize the data set
+    data_coll(1) = I0;                      % Initialize the data set
     
     % T_ind keep the time of people changed
     n = 1;
@@ -109,12 +109,12 @@ for k = 1 : number_simul
         n = n+1;                            % Next event
         % By given formular, give M (the total change rate) and T_len (length of time interval)
         if i == 0
-            T_len = dt;           % Step one step
+            T_len = dt;                     % Step one step
             data_coll(n) = data_coll(n-1);
             T_ind(n) = T_ind(n-1) + T_len;
             continue
         else
-            M = 1 - p0(i,1);             % M = p1 + p1_ (the probability of changes)
+            M = 1 - p0(i,1);                % M = p1 + p1_ (the probability of changes)
             T_len = -log(c)/M;
         end
 
