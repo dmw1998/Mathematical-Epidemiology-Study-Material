@@ -47,10 +47,10 @@ for k = 1 : number_simul
                 a1 = 0;                 % No S to I
                 a2 = p0_1(s,i);         % One I to R
                 a3 = a2 + p1_1(s,i);    % New born in S and one death in I
-                a4 = a3 + p10(s,i);    % New born in S and one death in R
+                a4 = a3 + p10(s,i);     % New born in S and one death in R
             end
         else                            % Both S and I are not zero
-            a1 = p_11(s,i);              % Less than a1, one from S to I
+            a1 = p_11(s,i);             % Less than a1, one from S to I
             a2 = a1 + p0_1(s,i);        % Greater than a1 but less than a2, one from I to R
             a3 = a2 + p1_1(s,i);        % Greater than a2 but less than a3, (1,-1)
             a4 = a3 + p10(s,i);         % Greater than a3 but less than a4, (1,0)
@@ -60,13 +60,13 @@ for k = 1 : number_simul
         if c < a1                       % Less than a1, one from S to I
             data_coll_S(j,k) = s-1;
             data_coll_I(j,k) = i+1;
-        elseif c >= a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+        elseif c >= a1 && c < a2        % Greater than a1 but less than a2, one from I to R
             data_coll_S(j,k) = s;
             data_coll_I(j,k) = i-1;
-        elseif c >= a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
+        elseif c >= a2 && c < a3        %  Greater than a2 but less than a3, (1,-1)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i-1;
-        elseif c >= a3 && c < a4         % Greater than a3 but less than a4, (1,0)
+        elseif c >= a3 && c < a4        % Greater than a3 but less than a4, (1,0)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i;
         else                            % Greater than a4, unchanged
@@ -134,7 +134,7 @@ for k = 1 : number_simul
                 a4 = a3 + p1_1(s,i);    % New born in S and one death in R
             end
         else                            % Both S and I are not zero
-            a1 = p_11(s,i);              % Less than a1, one from S to I
+            a1 = p_11(s,i);             % Less than a1, one from S to I
             a2 = a1 + p0_1(s,i);        % Greater than a1 but less than a2, one from I to R
             a3 = a2 + p1_1(s,i);        % Greater than a2 but less than a3, (1,-1)
             a4 = a3 + p10(s,i);         % Greater than a3 but less than a4, (1,0)
@@ -144,13 +144,13 @@ for k = 1 : number_simul
         if c < a1                       % Less than a1, one from S to I
             data_coll_S(j,k) = s-1;
             data_coll_I(j,k) = i+1;
-        elseif c >= a1 && c < a2         % Greater than a1 but less than a2, one from I to R
+        elseif c >= a1 && c < a2        % Greater than a1 but less than a2, one from I to R
             data_coll_S(j,k) = s;
             data_coll_I(j,k) = i-1;
-        elseif c >= a2 && c < a3         %  Greater than a2 but less than a3, (1,-1)
+        elseif c >= a2 && c < a3        %  Greater than a2 but less than a3, (1,-1)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i-1;
-        elseif c >= a3 && c < a4         % Greater than a3 but less than a4, (1,0)
+        elseif c >= a3 && c < a4        % Greater than a3 but less than a4, (1,0)
             data_coll_S(j,k) = s+1;
             data_coll_I(j,k) = i;
         else                            % Greater than a4, unchanged
