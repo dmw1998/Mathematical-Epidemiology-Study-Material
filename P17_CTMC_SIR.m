@@ -9,7 +9,7 @@ gamma = 0.5;            % Recover Rate
 I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
-total_time = 40;        % To 50 for each run
+total_time = 40;        % To 40 for each run
 number_simul = 50;      % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 S0 = N - I0;            % Initial susceptible individuals
@@ -126,7 +126,7 @@ for k = 1 : number_simul
         c = rand;
 
         n = n+1;                            % Next event
-       % By given formular, give M (the total change rate) and T_len (length of time interval)
+        % By given formular, give M (the total change rate) and T_len (length of time interval)
         M = 1 - p00(s,i,1);
         if M == 0
             T_len = 0.01;                   % Step one step
@@ -142,7 +142,7 @@ for k = 1 : number_simul
         % Determine the change interval
         a1 = p_11(s,i,T_len)/(1 - p00(s,i,T_len));
         a2 = a1 + p0_1(s,i,T_len)/(1 - p00(s,i,T_len));
-        a3 = a3 + p1_1(s,i,T_len)/(1 - p00(s,i,T_len));
+        a3 = a2 + p1_1(s,i,T_len)/(1 - p00(s,i,T_len));
 
         c = rand;                           % Pick a random number between (0,1)
         if c < a1                           % (-1,1)
