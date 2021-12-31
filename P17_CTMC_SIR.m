@@ -102,6 +102,13 @@ b = 0.25;               % Birth Rate
 gamma = 0.25;           % Recover Rate
 I0 = 2;                 % Initial Infectious Inidvidual
 
+%% Define transition probility
+p_11 = @(s,i,dt) beta/N*i*s*dt;            % (-1,1) one from S to I
+p0_1 = @(s,i,dt) gamma*i*dt;               % (0,-1) one from I to R
+p1_1 = @(s,i,dt) b*i*dt;                   % (1,-1) one born in S while one death in I
+p10 = @(s,i,dt) b*(N-s-i)*dt;              % (1,0)  one born in S while one death in R
+p00 = @(s,i,dt) 1 - p_11(s,i,dt) - p0_1(s,i,dt) - p1_1(s,i,dt) - p10(s,i,dt);          % Unchanged
+
 %% Simulation
 data_cell_I = {}; data_cell_S = {};
 index_cell = {};
