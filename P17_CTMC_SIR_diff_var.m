@@ -27,10 +27,10 @@ p10 = @(beta,s,i,dt) b*(N-s-i)*dt;              % (1,0)  one born in S while one
 p00 = @(beta,s,i,dt) 1 - p_11(beta,s,i,dt) - p0_1(beta,s,i,dt) - p1_1(beta,s,i,dt) - p10(beta,s,i,dt);          % Unchanged
 
 % Simulation
-total_time = 7;        % The peak of epidemic
+total_time = 50;        % 50 days observation
 prob_outbreak = [];
 for I0 = 1:3
-    S0 = N - I0
+    S0 = N - I0;
     cases = 0;
 
     for k = 1 : number_simul
@@ -86,6 +86,7 @@ for I0 = 1:3
     theory_prob = 1 - (1/2)^(I0);
     
     prob_outbreak = [prob_outbreak; cases/number_simul, theory_prob];
+    
 end
 
 figure
