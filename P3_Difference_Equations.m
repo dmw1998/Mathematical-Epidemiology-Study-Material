@@ -1,4 +1,4 @@
-clear all; clc
+clear all; clc; close all
 %% Setting up difference equations
 % We assume that individuals mix randomly and parameter values are given as
 % follows:
@@ -168,18 +168,18 @@ Dday_50yrs = find(data_coll5(3,8:trans_period2+1) < 1, 1) + 7;        % 140
 figure('WindowState','maximized');
 subplot(2,1,1);
 days = 0:dt:trans_period1;
-plot(days, data_coll4');
+plot(days/365, data_coll4');
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 10 years with LE = 70 yrs');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 subplot(2,1,2); 
 days = 0:dt:trans_period2;
-plot(days, data_coll5');
+plot(days/365, data_coll5');
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 50 years with LE = 70 yrs');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 % 8. How are the changes in the number of susceptible and immune related if
@@ -200,18 +200,18 @@ end
 figure('WindowState','maximized');
 subplot(2,1,1);
 days = 0:dt:trans_period2;
-plot(days, data_coll5');
+plot(days/365, data_coll5');
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 50 years with LE = 70 yrs');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 subplot(2,1,2); 
 days = 0:dt:trans_period3;
-plot(days, data_coll6');
+plot(days/365, data_coll6');
 legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
 title('SEIR model for 100 years with LE = 70 yrs');
-xlabel('Time(Days)');
+xlabel('Time(Years)');
 ylabel('Population');
 
 % As the trans_period increases, we can see that the model reach to the
@@ -267,10 +267,10 @@ for n = 1 : length(dt_opt)
 
     subplot(2,2,n);
     days = 0:dt:trans_period;
-    plot(days, data_coll7');
+    plot(days/365, data_coll7');
     legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
     title(sprintf('SEIR model for 50 years (dt = %d)', dt));
-    xlabel('Time(Days)');
+    xlabel('Time(Years)');
     ylabel('Population');
 end
 
@@ -279,28 +279,48 @@ trans_period = [200, 50 * 365];				% model of 200 days and 50 years
 dt = 10;                                                % for every 10 days
 figure('WindowState','maximized');
 
-for n = 1 : length(trans_period)
-    tsp = trans_period(n);
-    data_coll7 = [];
-    data_coll7(:,1) = [S0,E0,I0,R0]';
-    i = 1;
-    for t = dt+1 : dt : tsp+1
-        i = i + 1;
-        diff_mat = [-beta*data_coll7(3,i-1), mu, mu, mu; ...
-            beta*data_coll7(3,i-1), -kappa-mu, 0, 0;...
-            0, kappa, -alpha-mu, 0; ...
-            0, 0, alpha, -mu];
-        data_coll7(:,i) =data_coll7(:,i-1) + dt*(diff_mat*data_coll7(:,i-1));
-    end
-
-    subplot(2,1,n);
-    days = 0 : dt : tsp;
-    plot(days, data_coll7');
-    legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
-    title(sprintf('SEIR model for 50 years (dt = %d)', dt));
-    xlabel('Time(Days)');
-    ylabel('Population');
+tsp = trans_period(1);
+data_coll7 = [];
+data_coll7(:,1) = [S0,E0,I0,R0]';
+i = 1;
+for t = dt+1 : dt : tsp+1
+    i = i + 1;
+    diff_mat = [-beta*data_coll7(3,i-1), mu, mu, mu; ...
+        beta*data_coll7(3,i-1), -kappa-mu, 0, 0;...
+        0, kappa, -alpha-mu, 0; ...
+        0, 0, alpha, -mu];
+    data_coll7(:,i) =data_coll7(:,i-1) + dt*(diff_mat*data_coll7(:,i-1));
 end
+
+subplot(2,1,1);
+days = 0 : dt : tsp;
+plot(days, data_coll7');
+legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
+title(sprintf('SEIR model for 200 days (dt = %d)', dt));
+xlabel('Time(Days)');
+ylabel('Population');
+
+tsp = trans_period(2);
+data_coll7 = [];
+data_coll7(:,1) = [S0,E0,I0,R0]';
+i = 1;
+for t = dt+1 : dt : tsp+1
+    i = i + 1;
+    diff_mat = [-beta*data_coll7(3,i-1), mu, mu, mu; ...
+        beta*data_coll7(3,i-1), -kappa-mu, 0, 0;...
+        0, kappa, -alpha-mu, 0; ...
+        0, 0, alpha, -mu];
+    data_coll7(:,i) =data_coll7(:,i-1) + dt*(diff_mat*data_coll7(:,i-1));
+end
+
+subplot(2,1,2);
+days = 0 : dt : tsp;
+plot(days/365, data_coll7');
+legend('susceptible','pre-infectious','infectious','recover','Location', 'best');
+title(sprintf('SEIR model for 50 years (dt = %d)', dt));
+xlabel('Time(Years)');
+ylabel('Population');
+
 
  % Would it be reasonable to take a time step of 10 days?
  % No. The information is totally damaged.
