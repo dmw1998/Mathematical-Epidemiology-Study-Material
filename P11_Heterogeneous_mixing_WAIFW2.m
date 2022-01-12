@@ -85,11 +85,16 @@ ylim([0 1])
 title('Proportion of susceptible(WAIFW A)')
 legend('young','middle','old','Location', 'best')
 
+n = length(t);
+tt = (t(1:n-1)+t(2:n))/2;
+new_inf_y = f * (y(1:n-1,2) + y(2:n,2)) / 2 * (100000/N_y);
+new_inf_m = f * (y(1:n-1,6) + y(2:n,6)) / 2 * (100000/N_m);
+new_inf_o = f * (y(1:n-1,10) + y(2:n,10)) / 2 * (100000/N_o);
+
 subplot(2,2,2)
-plot(t/365, y(:,7)/100000, t/365, y(:,11)/100000)
-ylim([0 10E-5])
+plot(tt/365, new_inf_y, tt/365, new_inf_m, tt/365, new_inf_o)
 title('Daily number of new infections / 100,000')
-legend('middle','old','Location', 'best')
+legend('young','middle','old','Location', 'best')
 
 odefunB = @(t,y) [(1-vac(t))*N0*b-(WAIFW_B(1,:)*[y(3);y(7);y(11)]+a_y)*y(1); ...
     WAIFW_B(1,:)*[y(3);y(7);y(11)]*y(1)-(f+a_y)*y(2); ...
@@ -112,11 +117,16 @@ ylim([0 1])
 title('Proportion of susceptible(WAIFW A)')
 legend('young','middle','old','Location', 'best')
 
+n = length(t);
+tt = (t(1:n-1)+t(2:n))/2;
+new_inf_y = f * (y(1:n-1,2) + y(2:n,2)) / 2 * (100000/N_y);
+new_inf_m = f * (y(1:n-1,6) + y(2:n,6)) / 2 * (100000/N_m);
+new_inf_o = f * (y(1:n-1,10) + y(2:n,10)) / 2 * (100000/N_o);
+
 subplot(2,2,4)
-plot(t/365, y(:,7)/100000, t/365, y(:,11)/100000)
-ylim([0 10E-5])
+plot(tt/365, new_inf_y, tt/365, new_inf_m, tt/365, new_inf_o)
 title('Daily number of new infections / 100,000')
-legend('middle','old','Location', 'best')
+legend('young','middle','old','Location', 'best')
 
 % P4
 % The critical levels of vaccination coverage: 1 - 1/R0
