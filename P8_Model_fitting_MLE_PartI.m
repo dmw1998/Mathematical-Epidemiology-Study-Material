@@ -64,6 +64,7 @@ ylabel('Proportion positive')
 % 3.	Calculate the average age at infection, the R0 (assuming that the
 % life expectancy is 60 years) and herd immunity threshold with 95%
 % confidence interval.
+L = 60;
 A = 1/theta_MLE;        % Average age at infection
 R0 = L/A;               % R0
 H = 1 - 1/R0;           % herd immunity thershold
