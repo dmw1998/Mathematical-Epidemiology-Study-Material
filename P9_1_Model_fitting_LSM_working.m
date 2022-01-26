@@ -12,7 +12,7 @@ close all; clear all; clc
 % Read data
 T_uk = readmatrix('seroprevalence_uk.csv');
 time_stamp_uk = T_uk(:,1);        % data age
-time_stampc = 0:0.01:44;       % continuous time stamp for prediction
+time_stampc_uk = 0:0.01:44;          % continuous time stamp for prediction
 Pa_uk = T_uk(:,2);                % positive
 Na_uk = T_uk(:,3);                % N
 data_uk = Pa_uk./Na_uk;                 % seroprevalence
@@ -86,7 +86,7 @@ H_uk = 1 - 1/R0_uk;           % herd immunity thershold
 % Read data
 T_ch = readmatrix('seroprevalence_china.csv');
 time_stamp_ch = T_ch(:,1);     % data age
-time_stampc = 0:0.01:44;       % continuous time stamp for prediction
+time_stampc_ch = 0:0.01:36;       % continuous time stamp for prediction
 Pa_ch = T_ch(:,2);                % positive
 Na_ch = T_ch(:,3);                % N
 data_ch = Pa_ch./Na_ch;                 % seroprevalence
@@ -228,8 +228,66 @@ hold off
 % look as though the force of infection changes in these populations?
 
 % It may be difficult to determine whether the FOI is depend on age only
-% from those plots.
+% from those plots. 
+
+% From the plots in Q3, we can know that the FOI may depend on the age. We
+% can around the age as 15 years old. Then we can define a piecewise
+% funciton to simulate the data.
 
 % 11. Estimate the age-specific forces of infection using 2 age groups for
 % the UK and China. Suggest reasons for the differences in the force of
 % infection between China and the UK.
+
+% Divide the observe data sets by age (less than 15 and larger than 15)
+% Observing the data sets
+
+f1_uk = @(theta) sum(2.*(1-exp(-theta*time_stamp_uk(1:15))-data_uk(1:15)).*exp(-theta*time_stamp_uk(1:15)).*time_stamp_uk(1:15));
+theta_LSM_pf_uk_1 = fzero(f1_uk,theta_0);
+
+f2_uk = @(theta) sum(2.*(1-exp(-15*(theta_LSM_pf_uk_1-theta)).*exp(-theta*time_stamp_uk(16:end))-data_uk(16:end)).*((time_stamp_uk(16:end)-15).*exp((-15*theta_LSM_pf_uk_1+theta*15-theta*time_stamp_uk(16:end)))));
+theta_LSM_pf_uk_2 = fzero(f2_uk,theta_0);
+
+y_pf_uk = time_stampc_uk;
+y_pf_uk(1:1500) = 1 - exp(-theta_LSM_pf_uk_1*time_stampc_uk(1:1500));      % z(lambda1,a) = 1 - exp(-lambda1*a)
+y_pf_uk(1501:end) = 1 - exp(-15*(theta_LSM_pf_uk_1-theta_LSM_pf_uk_2))*exp(-theta_LSM_pf_uk_2*time_stampc_uk(1501:end));
+% z(lambda2) = 1 - exp(-15(lambda1-lambda2)*exp(-lambda2*a)
+
+LSM_error = sum((y_pf_uk - data_uk).^2);
+
+figure(8)
+hold on
+plot(time_stamp_uk, data_uk, '.')
+plot(time_stamp_uk, y_uk)
+plot(time_stampc_uk, y_pf_uk)
+ylim([0, 1.05])
+title(['UK Data : \lambda = ',num2str(theta_LSM_uk),' Estimation'])
+legend('Given data', 'Original Est.', 'Age-dependent Est.','Location','best')
+text(20,0.4,['Least square Error : ',num2str(LSM_error)])
+grid on;
+hold off
+
+
+f1_ch = @(theta) sum(2.*(1-exp(-theta*time_stamp_ch(1:7))-data_ch(1:7)).*exp(-theta*time_stamp_ch(1:7)).*time_stamp_ch(1:7));
+theta_LSM_pf_ch_1 = fzero(f1_ch,theta_0);
+
+f2_ch = @(theta) sum(2.*(1-exp(-15*(theta_LSM_pf_ch_1-theta)).*exp(-theta*time_stamp_ch(8:end))-data_ch(8:end)).*((time_stamp_ch(8:end)-15).*exp((-15*theta_LSM_pf_ch_1+theta*15-theta*time_stamp_ch(8:end)))));
+theta_LSM_pf_ch_2 = fzero(f2_ch,theta_0);
+
+y_pf_ch = time_stampc_ch;
+y_pf_ch(1:1500) = 1 - exp(-theta_LSM_pf_ch_1*time_stampc_ch(1:1500));      % z(lambda1,a) = 1 - exp(-lambda1*a)
+y_pf_ch(1501:end) = 1 - exp(-15*(theta_LSM_pf_ch_1-theta_LSM_pf_ch_2))*exp(-theta_LSM_pf_ch_2*time_stampc_ch(1501:end));
+% z(lambda2) = 1 - exp(-15(lambda1-lambda2)*exp(-lambda2*a)
+
+LSM_error = sum((y_pf_ch - data_ch).^2);
+
+figure(9)
+hold on
+plot(time_stamp_ch, data_ch, '.')
+plot(time_stamp_ch, y_ch)
+plot(time_stampc_ch, y_pf_ch)
+ylim([0, 1.05])
+title(['China Data : \lambda = ',num2str(theta_LSM_ch),' Estimation'])
+legend('Given data', 'Original Est.', 'Age-dependent Est.','Location','best')
+text(20,0.4,['Least square Error : ',num2str(LSM_error)])
+grid on;
+hold off
