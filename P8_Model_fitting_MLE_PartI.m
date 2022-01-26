@@ -42,7 +42,7 @@ chi2 = @(x) chi2cdf(x,1) - 0.95;            % Give the cdf of chi2 with degree o
 chival_95 = fzero(chi2,2);                  % around the best value with the given confidence interval
                                             % If the wanted confidence interval changed, then the transformation of function will be changed too.
 best_val = custnloglf(theta_MLE);           % likelihood function value evaluated by the minimum = wanted lambda
-fprintf('Best negative log-likelihood value of 0.1 : %f \n\n',best_val);
+fprintf('Best negative log-likelihood value of %f : %f \n\n',theta_MLE,best_val);
 
 nln = @(theta) custnloglf(theta)-(chival_95/2+best_val);  % Translate the nloglf to find the confidence interval
                                                           % move chival_95/2+best_val downward (the -2log(lambda) = chi2(k), k=1)
