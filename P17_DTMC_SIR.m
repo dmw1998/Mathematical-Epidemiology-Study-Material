@@ -83,6 +83,9 @@ hold on
 
 average_rel = mean(data_coll_I,2);
 plot(average_rel, 'k', 'LineWidth', 1.5)
+xlabel('Time Steps')
+ylabel('Number of Infectives')
+hold off
 
 %% 4. Set given parameter
 N = 100;                % Population
