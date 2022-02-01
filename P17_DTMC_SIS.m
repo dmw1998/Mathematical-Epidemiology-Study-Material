@@ -9,7 +9,7 @@ gamma = 0.25;           % Recover Rate
 I0 = 2;                 % Initial Infectious Inidvidual
 
 %% Set other parameter
-total_time = 50;        % To 50 for each run
+total_time = 35;        % To 35 for each run
 number_simul = 500;     % The number of simulations
 infuctive_unit = 1;     % Only one person trans for each time
 
@@ -68,9 +68,33 @@ data_coll(:, indx) = [];
 
 average_rel = mean(data_coll,2);
 plot(average_rel, 'k', 'LineWidth', 1.5)
+xlabel('Time Steps')
+ylabel('Number of Infectives')
+hold off
 
 figure
 histogram(final_I)
+
+figure
+en=50; % plot every enth time interval
+p=zeros(n+1,N+1);
+p(1,3)=1; % Two individuals initially infected.
+for t=1:n
+    y=T*p(t,:)';
+    p(t+1,:)=y';
+end
+pm(1,:)=p(1,:);
+for t=1:n/en
+    pm(t+1,:)=p(en*t,:);
+end
+ti=linspace(0,n,n/en+1);
+st=linspace(0,N,N+1);
+mesh(st,ti,pm);
+xlabel('Number of Infectives');
+ylabel('Time Steps');
+zlabel('Probability');
+view(140,30);
+axis([0,N,0,n,0,1]);
 
 %% 2. Set given parameter
 N = 100;                % Population
