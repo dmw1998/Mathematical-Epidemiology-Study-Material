@@ -6,12 +6,12 @@ dt = 0.01;              % Delta t, Time Step
 beta = 1;               % Transmission Rate
 b = 0.25;               % Birth Rate
 gamma = 0.25;           % Recover Rate
-I0 = 2;                 % Initial Infectious Inidvidual
+I0 = 2;                 % Initial Infectious Individuals
 
 %% Set other parameter
 total_time = 35;        % To 35 for each run
 number_simul = 500;     % The number of simulations
-infuctive_unit = 1;     % Only one person trans for each time
+infective_unit = 1;     % Only one person trans for each time
 
 %% Define transition probility
 p1 = @(i) beta/N*i*(N-i)*dt;          % j = i+1 One plus
@@ -107,7 +107,7 @@ I0 = 20;                % Initial Infectious Inidvidual
 %% Set other parameter
 total_time = 50;        % To 50 for each run
 number_simul = 500;     % The number of simulations
-infuctive_unit = 1;     % Only one person trans for each time
+infective_unit = 1;     % Only one person trans for each time
 
 %% Define transition probility
 p1 = @(i) beta/N*i*(N-i)*dt;          % j = i+1 One plus
