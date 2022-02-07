@@ -121,7 +121,7 @@ hold on
 plot(time_stamp_ch, data_ch, '.')
 plot(time_stamp_ch, y_ch)
 ylim([0, 1.05])
-title(['UK Data : \lambda = ',num2str(theta_LSM_ch),' Estimation'])
+title(['China Data : \lambda = ',num2str(theta_LSM_ch),' Estimation'])
 text(20,0.4,['Least square Error : ',num2str(LSM_error)])
 grid on;
 hold off
@@ -289,5 +289,126 @@ ylim([0, 1.05])
 title(['China Data : \lambda = ',num2str(theta_LSM_ch),' Estimation'])
 legend('Given data', 'Original Est.', 'Age-dependent Est.','Location','best')
 text(20,0.4,['Least square Error : ',num2str(LSM_error)])
+grid on;
+hold off
+
+%% Figure for Pre1
+%close all
+
+figure(10)
+plot(time_stamp_uk, data_uk, '.', 'MarkerSize',12)
+title('UK')
+legend('Observered','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+box off
+
+figure(11)
+plot(time_stamp_ch, data_ch, '.', 'MarkerSize',12)
+title('China')
+legend('Observered','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+box off
+
+LSM_error = sum((y_uk - data_uk).^2);
+y_uk = 1 - exp(-theta_LSM_uk*time_stampc_uk);
+figure(12)
+hold on
+plot(time_stamp_uk, data_uk, '.', 'MarkerSize',12)
+plot(time_stampc_uk, y_uk, 'LineWidth', 1)
+ylim([0, 1.05])
+title(['UK Data : \lambda = ',num2str(theta_LSM_uk),' Estimation'])
+legend('Observered','Estimation','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+text(20,0.4,['Least square Error : ',num2str(LSM_error)])
+grid on;
+hold off
+
+LSM_error = sum((y_ch - data_ch).^2);
+y_ch = 1 - exp(-theta_LSM_ch*time_stampc_ch);
+figure(13)
+hold on
+plot(time_stamp_ch, data_ch, '.', 'MarkerSize',12)
+plot(time_stampc_ch, y_ch, 'LineWidth', 1)
+ylim([0, 1.05])
+title(['China Data : \lambda = ',num2str(theta_LSM_ch),' Estimation'])
+legend('Observered','Estimation','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+text(20,0.4,['Least square Error : ',num2str(LSM_error)])
+grid on;
+hold off
+
+figure(14)
+subplot(1,2,1)
+hold on
+plot(time_stamp_uk, data_uk, '.', 'MarkerSize',12)
+plot(time_stampc_uk, y_uk, 'LineWidth', 1)
+ylim([0, 1.05])
+line([0,A_uk],[0.5,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+line([A_uk,A_uk],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+title('Average Age at Infection of UK')
+legend('Observered','Estimation','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+hold off
+
+subplot(1,2,2)
+hold on
+plot(time_stamp_ch, data_ch, '.', 'MarkerSize',12)
+plot(time_stampc_ch, y_ch, 'LineWidth', 1)
+ylim([0, 1.05])
+line([0,A_ch],[0.5,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+line([A_ch,A_ch],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+title('Average Age at Infection of China')
+legend('Observered','Estimation','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+hold off
+
+%% Figure for Pre2
+%close all
+
+figure(15)
+hold on
+plot(time_stamp_uk, ln_uk, '.', 'MarkerSize', 12)
+title('-ln(Sa/Na) for the UK')
+xlabel('Age(yrs)')
+grid on
+hold off
+
+figure(16)
+hold on
+plot(time_stamp_ch, ln_ch, '.', 'MarkerSize', 12)
+title('-ln(Sa/Na) for China')
+xlabel('Age(yrs)')
+grid on
+hold off
+
+figure(17)
+hold on
+plot(time_stamp_uk, data_uk, '.', 'MarkerSize', 12)
+plot(time_stampc_uk, y_uk, 'LineWidth', 1)
+plot(time_stampc_uk, y_pf_uk, 'LineWidth', 1)
+ylim([0, 1.05])
+title(['UK Data Age-dependent Estimation'])
+legend('Given data', 'Original Est.', 'Age-dependent Est.','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
+grid on;
+hold off
+
+figure(18)
+hold on
+plot(time_stamp_ch, data_ch, '.', 'MarkerSize', 12)
+plot(time_stampc_ch, y_ch, 'LineWidth', 1)
+plot(time_stampc_ch, y_pf_ch, 'LineWidth', 1)
+ylim([0, 1.05])
+title(['China Data Age-dependent Estimation'])
+legend('Given data', 'Original Est.', 'Age-dependent Est.','Location','best')
+xlabel('Age(yrs)')
+ylabel('Proportion positive')
 grid on;
 hold off
