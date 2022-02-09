@@ -293,7 +293,7 @@ grid on;
 hold off
 
 %% Figure for Pre1
-%close all
+close all
 
 figure(10)
 plot(time_stamp_uk, data_uk, '.', 'MarkerSize',12)
@@ -341,6 +341,12 @@ text(20,0.4,['Least square Error : ',num2str(LSM_error)])
 grid on;
 hold off
 
+A_uk
+% A_uk_exp = 1/(theta_LSM_uk + 1/L)
+% A_uk_rec = 1/theta_LSM_uk*((1-(1+theta_LSM_uk*L)*exp(-theta_LSM_uk*L))/(1-exp(-theta_LSM_uk*L)))
+gf_loc = find(y_uk>=0.4999,1);
+A_uk_gf = time_stampc_uk(gf_loc)
+
 figure(14)
 subplot(1,2,1)
 hold on
@@ -349,11 +355,20 @@ plot(time_stampc_uk, y_uk, 'LineWidth', 1)
 ylim([0, 1.05])
 line([0,A_uk],[0.5,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
 line([A_uk,A_uk],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+% line([A_uk_exp,A_uk_exp],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+% line([A_uk_rec,A_uk_rec],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+line([A_uk_gf,A_uk_gf],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
 title('Average Age at Infection of UK')
 legend('Observered','Estimation','Location','best')
 xlabel('Age(yrs)')
 ylabel('Proportion positive')
 hold off
+
+A_ch
+% A_ch_exp = 1/(theta_LSM_ch + 1/L)
+% A_ch_rec = 1/theta_LSM_ch*((1-(1+theta_LSM_ch*L)*exp(-theta_LSM_ch*L))/(1-exp(-theta_LSM_ch*L)))
+gf_loc = find(y_ch>=0.4999,1);
+A_ch_gf = time_stampc_uk(gf_loc)
 
 subplot(1,2,2)
 hold on
@@ -362,6 +377,9 @@ plot(time_stampc_ch, y_ch, 'LineWidth', 1)
 ylim([0, 1.05])
 line([0,A_ch],[0.5,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
 line([A_ch,A_ch],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+% line([A_ch_exp,A_ch_exp],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+% line([A_ch_rec,A_ch_rec],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
+line([A_ch_gf,A_ch_gf],[0,0.5],'linestyle','--', 'Color','r', 'LineWidth', 1)
 title('Average Age at Infection of China')
 legend('Observered','Estimation','Location','best')
 xlabel('Age(yrs)')
