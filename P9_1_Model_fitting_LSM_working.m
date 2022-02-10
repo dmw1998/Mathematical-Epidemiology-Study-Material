@@ -293,7 +293,7 @@ grid on;
 hold off
 
 %% Figure for Pre1
-close all
+% close all
 
 figure(10)
 plot(time_stamp_uk, data_uk, '.', 'MarkerSize',12)
@@ -430,3 +430,6 @@ xlabel('Age(yrs)')
 ylabel('Proportion positive')
 grid on;
 hold off
+
+figure(19)
+plot([0;time_stamp_uk], [0;y_uk2])
