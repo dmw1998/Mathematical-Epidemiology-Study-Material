@@ -89,7 +89,7 @@ xlabel('Time(Days)');
 % coverage) the herd immunity threshold?
 
 c1 = 0.6;       % vaccine 60% coverage
-c2 = 0.9;       % vaccine 60% coverage
+c2 = 0.9;       % vaccine 90% coverage
 
 odefun60 = @(t,y) [-beta*y(1)*y(3) + (1-c1)*mu*(N-y(1));...
     beta*y(1)*y(3) - kappa*y(2) - mu*y(2);...
