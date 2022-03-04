@@ -79,4 +79,87 @@ ax.set_xlabel('Time(Days)')
 ax.set_ylabel('Population')
 ax.legend()
 
+## Consider natural death
+LE = 70*365         # Life expectancy
+mu = 1/LE           # Birth rate = death rate
+
+data_coll3 = []
+I3 = [I0]
+data_coll3.append(np.array([S0, E0, I0, R0]))
+for i in range(1,trans_period+1):
+    diff_mat = np.array([[-beta*data_coll3[i-1][2], mu, mu, mu],
+                        [beta*data_coll3[i-1][2], -kappa-mu, 0, 0],
+                        [0, kappa, -alpha-mu, 0],
+                        [0, 0, alpha, -mu]])
+    data_coll3.append(data_coll3[i-1] + dt*np.matmul(diff_mat,data_coll3[i-1]))
+    # I3.append(data_coll3[i][2])
+
+fig4, ax = plt.subplots()
+ax.plot(days, data_coll,'--',label=['susceptible','pre-infectious','infectious','recover'])
+ax.plot(days, data_coll3,label=['susceptible','pre-infectious','infectious','recover'])
+ax.set_title('SEIR model for 200 days pre-inf %d days' %(1/kappa))
+ax.set_xlabel('Time(Days)')
+ax.set_ylabel('Population')
+ax.legend()
+
+trans_period = 10*365
+days = range(0,trans_period+1)
+days = np.array(days)/365
+data_coll4 = []
+I4 = [I0]
+data_coll4.append(np.array([S0, E0, I0, R0]))
+for i in range(1,trans_period+1):
+    diff_mat = np.array([[-beta*data_coll4[i-1][2], mu, mu, mu],
+                        [beta*data_coll4[i-1][2], -kappa-mu, 0, 0],
+                        [0, kappa, -alpha-mu, 0],
+                        [0, 0, alpha, -mu]])
+    data_coll4.append(data_coll4[i-1] + dt*np.matmul(diff_mat,data_coll4[i-1]))
+    # I4.append(data_coll4[i][2])
+
+plt.figure()
+fig5 = plt.plot(days, data_coll4)
+plt.legend(fig5,['susceptible','pre-infectious','infectious','recover'])
+plt.title('SEIR model for 10 years pre-inf %d days' %(1/kappa))
+plt.xlabel('Time(years)')
+
+trans_period = 50*365
+days = range(0,trans_period+1)
+days = np.array(days)/365
+data_coll5 = []
+I5 = [I0]
+data_coll5.append(np.array([S0, E0, I0, R0]))
+for i in range(1,trans_period+1):
+    diff_mat = np.array([[-beta*data_coll5[i-1][2], mu, mu, mu],
+                        [beta*data_coll5[i-1][2], -kappa-mu, 0, 0],
+                        [0, kappa, -alpha-mu, 0],
+                        [0, 0, alpha, -mu]])
+    data_coll5.append(data_coll5[i-1] + dt*np.matmul(diff_mat,data_coll5[i-1]))
+    # I5.append(data_coll5[i][2])
+
+plt.figure()
+fig6 = plt.plot(days, data_coll5)
+plt.legend(fig6,['susceptible','pre-infectious','infectious','recover'])
+plt.title('SEIR model for 50 years pre-inf %d days' %(1/kappa))
+plt.xlabel('Time(years)')
+
+trans_period = 100*365
+days = range(0,trans_period+1)
+days = np.array(days)/365
+data_coll6 = []
+I6 = [I0]
+data_coll6.append(np.array([S0, E0, I0, R0]))
+for i in range(1,trans_period+1):
+    diff_mat = np.array([[-beta*data_coll6[i-1][2], mu, mu, mu],
+                        [beta*data_coll6[i-1][2], -kappa-mu, 0, 0],
+                        [0, kappa, -alpha-mu, 0],
+                        [0, 0, alpha, -mu]])
+    data_coll6.append(data_coll6[i-1] + dt*np.matmul(diff_mat,data_coll6[i-1]))
+    # I6.append(data_coll6[i][2])
+
+plt.figure()
+fig6 = plt.plot(days, data_coll6)
+plt.legend(fig6,['susceptible','pre-infectious','infectious','recover'])
+plt.title('SEIR model for 100 years pre-inf %d days' %(1/kappa))
+plt.xlabel('Time(years)')
+
 plt.show()
