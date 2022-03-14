@@ -1,7 +1,6 @@
 from cProfile import label
 import numpy as np
 from scipy.integrate import odeint
-from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
 N = 100000						# Population 100,000 people
