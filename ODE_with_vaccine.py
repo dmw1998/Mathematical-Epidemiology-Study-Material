@@ -49,20 +49,21 @@ def model_vac(y,t,beta,kappa,alpha,mu,N,c):
             alpha*y[2] - c*mu*y[3]]
     return dydt
 
-# # Initial guess
-# y0 = data_coll[trans_period,:]
+# Initial guess
+y0 = data_coll[trans_period,:]
 
 # Time points
-# t2 = np.linspace(trans_period+1,trans_period_vac,trans_period_vac-trans_period+1)
+t2 = np.linspace(trans_period+1,trans_period_vac,trans_period_vac-trans_period+1)
 
 # Solve ODE
-# data_coll1 = odeint(model_vac,y0,t1,args=(beta,kappa,alpha,mu,N,c1))
+data_coll1 = odeint(model_vac,y0,t1,args=(beta,kappa,alpha,mu,N,c1))
 
-# plt.plot(t1/365,data_coll1[:,2],label='60 coverage')
+plt.plot(t1/365,data_coll1[:,2],label='60 coverage')
 
-# data_coll2 = odeint(model_vac,y0,t1,args=(beta,kappa,alpha,mu,N,c2))
+# Solve ODE
+data_coll2 = odeint(model_vac,y0,t1,args=(beta,kappa,alpha,mu,N,c2))
 
-# plt.plot(t1/365,data_coll2[:,2],label='90 coverage')
+plt.plot(t1/365,data_coll2[:,2],label='90 coverage')
 
 plt.legend()
 plt.xlabel('Time(Years)')
@@ -70,3 +71,10 @@ plt.xlim((30,80))
 plt.ylim((0,120))
 
 plt.show()
+
+"""
+ivp_solver: RK45 https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html
+odeint: LSODA https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.odeint.html#scipy.integrate.odeint
+
+lsoda: https://people.sc.fsu.edu/~jburkardt/f77_src/odepack/odepack.html
+"""
