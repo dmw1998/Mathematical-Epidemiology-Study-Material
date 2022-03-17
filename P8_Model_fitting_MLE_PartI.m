@@ -73,6 +73,7 @@ A_ci = 1./theta_MLE_ci;
 R0_ci = L./A_ci;
 H_ci = 1-1./R0_ci;
 
+%% China
 % Read data
 T = readmatrix('seroprevalence_china.csv');
 time_stamp = T(:,1);        % data age
@@ -86,7 +87,7 @@ data = Pa./Na;              % seroprevalence
 % in the UK) and herd immunity threshold with 95% confidence interval.
 
 % MLE procedure
-theta_0 = 0.1;
+theta_0 = 0.15;
 
 fprintf('start MLE procedure \n')
 custnloglf = @(theta) -sum(log(binopdf(Pa,Na,1-exp(-theta*time_stamp))));
@@ -94,7 +95,7 @@ theta_MLE = fminsearch(custnloglf,theta_0);         % Wanted best lambda
 
 z = 1 - exp(-theta_0*time_stampc);      % z(lambda,a) = 1 - exp(-lambda*a)
 
-fprintf('Negative log-likelihood value of 0.1 : %f \n\n',custnloglf(theta_0));
+fprintf('Negative log-likelihood value of 0.15 : %f \n\n',custnloglf(theta_0));
 
 %5.     Modify the expression for the prevalence of previous infection at each
 %age assuming that individuals are immune for the first 6 months of life
@@ -110,7 +111,7 @@ chi2 = @(x) chi2cdf(x,1) - 0.95;            % Give the cdf of chi2 with degree o
 chival_95 = fzero(chi2,2);                  % around the best value with the given confidence interval
                                             % If the wanted confidence interval changed, then the transformation of function will be changed too.
 best_val = custnloglf(theta_MLE);           % likelihood function value evaluated by the minimum = wanted lambda
-fprintf('Best negative log-likelihood value of 0.1 : %f \n\n',best_val);
+fprintf('Best negative log-likelihood value of 0.15 : %f \n\n',best_val);
 
 nln = @(theta) custnloglf(theta)-(chival_95/2+best_val);  % Translate the nloglf to find the confidence interval
                                                           % move chival_95/2+best_val downward (the -2log(lambda) = chi2(k), k=1)
@@ -125,7 +126,7 @@ hold on
 scatter(time_stamp, data, '.')
 plot(time_stampc,z)
 plot(time_stampc,y)
-legend('Data','Prediction(\lambda = 0.1)','Prediction(\lambda = best)','Location','best')
+legend('Data','Prediction(\lambda = 0.15)','Prediction(\lambda = best)','Location','best')
 xlabel('Age (yrs)')
 ylabel('Proportion positive')
 
